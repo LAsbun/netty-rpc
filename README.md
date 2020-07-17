@@ -39,3 +39,11 @@ Rpc 项目
 ---- 
 todo
 
+
+分步骤编码
+---
+- 注册(这里其实就是注册ip:port)-->ServiceRegister
+   - 这里是注册到zookeeper
+- 发现(发现提供服务的ip:port)--->ServiceDiscover
+   - 这里是从zookeeper根据serverName 找到对应的服务地址
+- [todo] 尝试集成spring
