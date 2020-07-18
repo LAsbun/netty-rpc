@@ -13,6 +13,7 @@
 
     <properties>
         <netty.version>4.1.50.final</netty.version>
+        <guava.version>29.0-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -42,6 +43,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
@@ -69,6 +76,10 @@
                 <exclusion>
                     <artifactId>netty</artifactId>
                     <groupId>io.netty</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
