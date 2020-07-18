@@ -42,8 +42,10 @@ todo
 
 分步骤编码
 ---
-- 注册(这里其实就是注册ip:port)-->ServiceRegister
+- [done] 注册(这里其实就是注册ip:port)-->ServiceRegister
    - 这里是注册到zookeeper
-- 发现(发现提供服务的ip:port)--->ServiceDiscover
+- [done] 发现(发现提供服务的ip:port)--->ServiceDiscover
    - 这里是从zookeeper根据serverName 找到对应的服务地址
+   - 获取到了之后，增加了一个负载均衡的的机制LoadBalance
+- [todo] rpc 协议-->[netty]
 - [todo] 尝试集成spring
