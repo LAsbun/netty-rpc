@@ -29,6 +29,8 @@ public class RPCRequest {
     // 参数
     private Object[] parameters;
 
+    private Class<?>[] paramTypes;
+
     // 请求的类型
     private RPCMessageTypeEnum rpcMessageTypeEnum;
 }
