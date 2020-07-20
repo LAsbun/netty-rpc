@@ -24,6 +24,7 @@ import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
+import java.net.InetSocketAddress;
 
 /**
  * Created by sws
@@ -51,6 +52,12 @@ public class NettyServer {
         this.serviceRegister = new ServiceRegisterImpl();
         this.serializer = new FastjsonSerializerImpl();
 
+    }
+
+    // 注册服务
+    public <T> void publishService(T service, Class<T> serviceClazz) {
+        serviceProvider.addService(service, serviceClazz);
+        serviceRegister.registerService(serviceClazz.getCanonicalName(), new InetSocketAddress(address, port));
     }
 
     public void start() {
