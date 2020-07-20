@@ -1,4 +1,4 @@
-package github.LAsbun.entity;
+package github.LAsbun.entity.enums;
 
 /**
  * Created by sws
