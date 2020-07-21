@@ -20,5 +20,5 @@ public interface ClientMessageProcessService {
      */
     void put(String requestId, CompletableFuture<RPCResponse> future);
 
-    void remove(RPCResponse rpcResponse);
+    void complete(RPCResponse rpcResponse);
 }
