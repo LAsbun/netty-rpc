@@ -48,11 +48,12 @@ todo
    - 这里是从zookeeper根据serverName 找到对应的服务地址
    - 获取到了之后，增加了一个负载均衡的的机制LoadBalance
 - [todo] rpc 协议-->[netty]
-    - 服务端
-        - 注册服务
+    - 服务端 
+        - 注册服务 [done]
         - 接受请求
+        - 优雅上下线[todo]
     - 客户端
-        - 发现服务
+        - 发现服务 [done]
         - 发送请求
 - [todo] 并发控制(针对不同服务，控制不同的大小?)
 - [todo] 尝试集成spring
