@@ -4,11 +4,11 @@ import github.LAsbun.entity.RPCRequest;
 import github.LAsbun.exception.RPCException;
 import github.LAsbun.provider.ServiceProvider;
 import github.LAsbun.provider.ServiceProviderImpl;
+import github.LAsbun.utils.SingletonFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.rmi.NoSuchObjectException;
 
 /**
  * Created by sws
@@ -19,7 +19,7 @@ public class RPCRequestHandlerImpl implements RPCRequestHandler {
     private ServiceProvider serviceProvider;
 
     public RPCRequestHandlerImpl() {
-        this.serviceProvider = new ServiceProviderImpl();
+        this.serviceProvider = SingletonFactory.getInstance(ServiceProviderImpl.class);
     }
 
 
@@ -36,12 +36,13 @@ public class RPCRequestHandlerImpl implements RPCRequestHandler {
 
         try {
             Object service = serviceProvider.getService(rpcRequest.getInterfaceName());
-            if (null != service) {
+            if (null == service) {
                 log.info("[{}] not found service", rpcRequest.getRequestId());
                 throw new NoClassDefFoundError("没有找到对应的service");
             }
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
 
+            // todo 这里参数转换出来并不是对应的类
             Object result = method.invoke(service, rpcRequest.getParameters());
             log.info("[{}] handler RPC end", rpcRequest.getRequestId());
             return result;

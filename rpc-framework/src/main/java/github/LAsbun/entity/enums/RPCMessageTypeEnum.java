@@ -7,5 +7,6 @@ package github.LAsbun.entity.enums;
  */
 
 public enum RPCMessageTypeEnum {
-    HEART_BEAT
+    RPC_SERVICE, // rpc调用
+    HEART_BEAT  // 预留心跳检测
 }

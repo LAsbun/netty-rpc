@@ -6,6 +6,7 @@ import github.LAsbun.handler.RPCRequestHandler;
 import github.LAsbun.handler.RPCRequestHandlerImpl;
 import github.LAsbun.threadpool.ThreadPoolManagerService;
 import github.LAsbun.threadpool.ThreadPoolManagerServiceImpl;
+import github.LAsbun.utils.SingletonFactory;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -20,15 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
-    private ThreadPoolManagerService poolManager;
+    private final ThreadPoolManagerService poolManager;
 
-    private RPCRequestHandler rpcRequestHandler;
+    private final RPCRequestHandler rpcRequestHandler;
 
     public NettyServerHandler() {
         log.info("[NettyServerHandler] NettyServerHandler 初始化了");
         // 这里进行初始化
-        this.poolManager = new ThreadPoolManagerServiceImpl();
-        this.rpcRequestHandler = new RPCRequestHandlerImpl();
+        this.poolManager = SingletonFactory.getInstance(ThreadPoolManagerServiceImpl.class);
+        this.rpcRequestHandler = SingletonFactory.getInstance(RPCRequestHandlerImpl.class);
 
     }
 
@@ -52,6 +53,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                     } else {
                         log.info("[{}] not writable drop", rpcRequest.getRequestId());
                     }
+                    // todo 这里失败了要怎么处理？
                 } finally {
                     // 释放byteBuf 不然会有内存泄露的风险
                     ReferenceCountUtil.release(msg);

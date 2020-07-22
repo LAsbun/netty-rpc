@@ -1,6 +1,9 @@
 package github.LAsbun.transform.client;
 
 import github.LAsbun.entity.RPCRequest;
+import github.LAsbun.entity.RPCResponse;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by sws
@@ -17,5 +20,5 @@ public interface ClientTransport {
      * @param rpcRequest 请求主体
      * @return 服务端响应数据
      */
-    Object sendRequest(RPCRequest rpcRequest);
+    CompletableFuture<RPCResponse> sendRequest(RPCRequest rpcRequest);
 }

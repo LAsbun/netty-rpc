@@ -1,5 +1,6 @@
 package github.LAsbun;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @create 2020-07-20 11:05 PM
  */
 @Data
+@AllArgsConstructor
 public class HelloWorldMessage {
     private String message;
     private String desc;

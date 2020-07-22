@@ -10,6 +10,7 @@ import github.LAsbun.serialize.FastjsonSerializerImpl;
 import github.LAsbun.serialize.Serializer;
 import github.LAsbun.transform.codec.RPCDecoder;
 import github.LAsbun.transform.codec.RPCEncoder;
+import github.LAsbun.utils.SingletonFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -48,8 +49,8 @@ public class NettyServer {
     public NettyServer(String address, int port) {
         this.port = port;
         this.address = address;
-        this.serviceProvider = new ServiceProviderImpl();
-        this.serviceRegister = new ServiceRegisterImpl();
+        this.serviceProvider = SingletonFactory.getInstance(ServiceProviderImpl.class);
+        this.serviceRegister = SingletonFactory.getInstance(ServiceRegisterImpl.class);
         this.serializer = new FastjsonSerializerImpl();
 
     }

@@ -1,10 +1,7 @@
 package github.LAsbun.entity;
 
 import github.LAsbun.entity.enums.RPCMessageTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -16,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class RPCRequest {
 
     // 请求唯一id
