@@ -50,6 +50,6 @@ public class ClientProxyImpl implements ClientProxy {
 
         RPCCheckUtils.checkRequestAndResponse(rpcRequest, rpcResponse);
 
-        return rpcResponse;
+        return rpcResponse.getData();
     }
 }

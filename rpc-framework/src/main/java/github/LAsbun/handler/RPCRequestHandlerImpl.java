@@ -40,6 +40,7 @@ public class RPCRequestHandlerImpl implements RPCRequestHandler {
                 log.info("[{}] not found service", rpcRequest.getRequestId());
                 throw new NoClassDefFoundError("没有找到对应的service");
             }
+
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
 
             // todo 这里参数转换出来并不是对应的类
@@ -51,4 +52,6 @@ public class RPCRequestHandlerImpl implements RPCRequestHandler {
             throw new RPCException(e.getMessage(), e);
         }
     }
+
+
 }
