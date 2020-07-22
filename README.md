@@ -2,6 +2,8 @@ Rpc 项目
 ----
 - 极其简单的一个rpc项目
 
+项目参考：https://github.com/Snailclimb/guide-rpc-framework
+
 设计思想(都是基于一个简单的实现)
 ----
 * 一个简单的rpc简单讲由以下几个模块构成
@@ -50,7 +52,7 @@ todo
 - [todo] rpc 协议-->[netty]
     - 服务端 
         - 注册服务 [done]
-        - 接受请求
+        - 接受请求 [done]
         - 优雅上下线[todo]
     - 客户端
         - 发现服务 [done]
