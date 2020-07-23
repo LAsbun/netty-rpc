@@ -14,6 +14,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +47,7 @@ public final class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        socketChannel.pipeline().addLast(new IdleStateHandler(3,0,0));
                         socketChannel.pipeline().addLast(new RPCDecoder(serializer, RPCResponse.class));
                         socketChannel.pipeline().addLast(new RPCEncoder(serializer, RPCRequest.class));
                         socketChannel.pipeline().addLast(new NettyClientHandler());
