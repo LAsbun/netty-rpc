@@ -43,7 +43,7 @@ public class RPCRequestHandlerImpl implements RPCRequestHandler {
 
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
 
-            // todo 这里参数转换出来并不是对应的类
+            // 这里参数转换出来并不是对应的类
             Object result = method.invoke(service, rpcRequest.getParameters());
             log.info("[{}] handler RPC end", rpcRequest.getRequestId());
             return result;

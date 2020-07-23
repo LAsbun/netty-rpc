@@ -1,12 +1,20 @@
 package github.LAsbun.transform.client;
 
+import github.LAsbun.entity.RPCRequest;
 import github.LAsbun.entity.RPCResponse;
+import github.LAsbun.entity.enums.RPCMessageTypeEnum;
+import github.LAsbun.transform.client.impl.ClientChannelProviderImpl;
 import github.LAsbun.transform.client.impl.ClientMessageProcessServiceImpl;
 import github.LAsbun.utils.SingletonFactory;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
+
+import java.net.InetSocketAddress;
 
 /**
  * Created by sws
@@ -22,8 +30,11 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     private final ClientMessageProcessService processService;
 
+    private final ClientChannelProvider clientChannelProvider;
+
     public NettyClientHandler() {
         this.processService = SingletonFactory.getInstance(ClientMessageProcessServiceImpl.class);
+        this.clientChannelProvider = SingletonFactory.getInstance(ClientChannelProviderImpl.class);
     }
 
     @Override
@@ -44,8 +55,15 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        // note:处理超时, 目前没有做心跳机制，所以暂时不用实现
-        super.userEventTriggered(ctx, evt);
+        if (evt instanceof IdleStateEvent) {
+            log.info(" state");
+            RPCRequest rpcRequest = RPCRequest.builder().rpcMessageTypeEnum(RPCMessageTypeEnum.HEART_BEAT).build();
+            Channel channel = clientChannelProvider.get((InetSocketAddress) ctx.channel().remoteAddress());
+            channel.writeAndFlush(rpcRequest);
+            log.info("state send done");
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
     }
 
     @Override

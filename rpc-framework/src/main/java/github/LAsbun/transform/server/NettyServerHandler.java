@@ -2,6 +2,8 @@ package github.LAsbun.transform.server;
 
 import github.LAsbun.entity.RPCRequest;
 import github.LAsbun.entity.RPCResponse;
+import github.LAsbun.entity.enums.RPCMessageTypeEnum;
+import github.LAsbun.entity.enums.RPCResponseCodeEnum;
 import github.LAsbun.handler.RPCRequestHandler;
 import github.LAsbun.handler.RPCRequestHandlerImpl;
 import github.LAsbun.threadpool.ThreadPoolManagerService;
@@ -37,6 +39,12 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("[NettyServerHandler] received a message:{}", msg);
         RPCRequest rpcRequest = (RPCRequest) msg;
+
+        if (RPCMessageTypeEnum.HEART_BEAT.equals(rpcRequest.getRpcMessageTypeEnum())) {
+            log.info("[NettyServerHandler] receive hearbeat");
+            return;
+        }
+
         poolManager.getExecutorService(rpcRequest.getInterfaceName()).execute(new Runnable() {
             @Override
             public void run() {
